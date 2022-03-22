@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 import './Modal.css'
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-const Modal = ({ isEventModal, setIsEventModal, createEvent, setCreateEvent, setAllEvents, allEvents }) => {
+const Modal = ({ isEventModal, setIsEventModal, createNewEvent, setCreateNewEvent, setAllEvents, allEvents }) => {
     const Modalref = useRef();
+    const [errorTitle, setErrorTitle] = useState('')
+    const [errorDate, setErrorDate] = useState('')
+
+    const AddNewEvent = () => {
+        if (createNewEvent.title && createNewEvent.start != '') {
+            setAllEvents([...allEvents, createNewEvent]);
+            setIsEventModal(false)
+            setErrorTitle('')
+            setErrorDate('')
+            setCreateNewEvent({ title: "", start: "", end: "" })
+        } else if (createNewEvent.title === '') {
+            setErrorTitle('Please add a title')
+            setErrorDate('')
+        } else if (createNewEvent.start === '') {
+            setErrorDate('Please choose a date')
+            setErrorTitle('')
+        }
+    }
+
     useEffect(() => {
         const checkIfClickedOutsideModal = (e) => {
             if (isEventModal && Modalref.current && !Modalref.current.contains(e.target)) {
@@ -24,23 +43,26 @@ const Modal = ({ isEventModal, setIsEventModal, createEvent, setCreateEvent, set
     if (!isEventModal) {
         return null;
     }
-    const handleAddEvent = () => {
-        setAllEvents([...allEvents, createEvent]);
-    }
+
     return createPortal(
         <>
             <div className="modal-overlay"></div>
             <div className='modal'
                 ref={Modalref}>
-                <div>
+                <div className='modal-wrapper'>
                     <h2>Add New Event</h2>
-                    <div>
-                        <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }} value={createEvent.title} onChange={(e) => setCreateEvent({ ...createEvent, title: e.target.value })} />
-                        <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={createEvent.start} onChange={(start) => setCreateEvent({ ...createEvent, start })} />
-                        <DatePicker placeholderText="End Date" selected={createEvent.end} onChange={(end) => setCreateEvent({ ...createEvent, end })} />
-                        <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
-                            Add Event
-                        </button>
+                    <div className='modal-input-wrapper'>
+                        <input type="text" placeholder="Add Title"
+                            value={createNewEvent.title}
+                            onChange={(e) => setCreateNewEvent({ ...createNewEvent, title: e.target.value })} />
+                        <p>{errorTitle && errorTitle}</p>
+                        <DatePicker placeholderText="Pick a date" style={{ width: "60%", marginBottom: "10px" }}
+                            selected={createNewEvent.start}
+                            onChange={(start) => setCreateNewEvent({ ...createNewEvent, start: start, end: start })} />
+                        <p>{errorDate && errorDate}</p>
+                        <button
+                            onClick={AddNewEvent}
+                            className="button-submit" role="button">+Add Event</button>
                     </div>
                 </div>
             </div>

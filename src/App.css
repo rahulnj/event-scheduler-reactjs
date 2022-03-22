@@ -3,12 +3,17 @@
     flex-direction: column;
 }
 
+.main-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .app-header{
     display: flex;
     justify-content: flex-end;
-    padding: 10px 20px;
+    padding: 5px 20px;
 }
-
 
 .button-59 {
   align-items: center;
@@ -58,3 +63,4 @@
     min-width: 170px;
   }
 }
+

@@ -23,26 +23,16 @@ const localizer = dateFnsLocalizer({
 
 const events = [
   {
-    title: "Big Meeting",
+    title: "+ Add Event",
     allDay: true,
-    start: new Date(2021, 6, 0),
-    end: new Date(2021, 6, 0),
-  },
-  {
-    title: "Vacation",
-    start: new Date(2021, 6, 7),
-    end: new Date(2021, 6, 10),
-  },
-  {
-    title: "Conference",
-    start: new Date(2021, 6, 20),
-    end: new Date(2021, 6, 23),
-  },
+    start: new Date(),
+    end: new Date(),
+  }
 ];
 
 
 const App = () => {
-  const [createEvent, setCreateEvent] = useState({ title: "", start: "", end: "" });
+  const [createNewEvent, setCreateNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState(events);
   const [isEventModal, setIsEventModal] = useState(false)
 
@@ -50,19 +40,23 @@ const App = () => {
     <>
       <Modal isEventModal={isEventModal}
         setIsEventModal={setIsEventModal}
-        createEvent={createEvent}
-        setCreateEvent={setCreateEvent}
+        createNewEvent={createNewEvent}
+        setCreateNewEvent={setCreateNewEvent}
         setAllEvents={setAllEvents}
         allEvents={allEvents}
       />
       <div className="app">
+        <div className="main-header">
+          <h2>
+            Event Scheduler
+          </h2>
+        </div>
         <div className="app-header">
           <button
             onClick={() => setIsEventModal(true)}
             className="button-59" role="button">+Add Event</button>
         </div>
         <Calendar
-
           localizer={localizer}
           events={allEvents}
           startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />

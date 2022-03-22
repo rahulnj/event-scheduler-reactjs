@@ -11,8 +11,8 @@
 .modal{
     position: fixed;
     z-index: 4;
-    width: 800px;
-    min-width: 200px;
+    width: 400px;
+    min-width: 150px;
     min-height: 150px;
     height: 500px;
     border-radius: 10px;
@@ -24,4 +24,64 @@
     background:#fdfdfd;
     padding: 10px;
     transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.modal-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-input-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-submit {
+    background-color: rgba(162, 26, 252, 0.959);
+    border: 1px solid rgb(209, 213, 219);
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    padding: 0.48rem 1rem;
+    text-align: center;
+    text-decoration: none #d1d5db solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: 0.3s;
+}
+.button-submit:hover {
+    background-color: rgba(162, 26, 252, 0.959);
+}
+
+.button-submit:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.button-submit:focus-visible {
+    box-shadow: none;
+}
+
+input{
+    width: 70%;
+    height:35px;
+margin-bottom: 5px;
+}
+
+p{
+    color: red;
 }
